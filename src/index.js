@@ -8,6 +8,7 @@ import {  getFirestore } from "firebase/firestore";
 import { createTheme, CssBaseline } from '@mui/material';
 import CartCtxProvider from './data/cartContext';
 import AppCtxProvider from './data/appContext';
+import FbProvider from './data/fbContext';
 import { ThemeProvider } from '@emotion/react';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
@@ -44,13 +45,15 @@ ReactDOM.render(
     <CssBaseline />
     <Router>
       <AppCtxProvider>
-        <CartCtxProvider>
-          <RTL>
-            <ThemeProvider theme={theme}>
-              <App />
-            </ThemeProvider>
-          </RTL>
-        </CartCtxProvider>
+        <FbProvider>
+          <CartCtxProvider>
+            <RTL>
+              <ThemeProvider theme={theme}>
+                <App />
+              </ThemeProvider>
+            </RTL>
+          </CartCtxProvider>
+        </FbProvider>
       </AppCtxProvider>
     </Router>
   </React.StrictMode>,

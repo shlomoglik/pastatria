@@ -14,7 +14,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 function Row(props) {
-    const { row , headers,subHeaders} = props;
+    const { row , headers,subHeaders , subRowTitle} = props;
     const [open, setOpen] = React.useState(false);
 
     return (
@@ -29,26 +29,26 @@ function Row(props) {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                {headers.map(h => (<TableCell component={"th"} key={`${row.id}_${h}`}>{row[h.field]}</TableCell>))}
+                {headers.map(h => (<TableCell component={"th"} key={`${row.id}_${h.field}`}>{row[h.field]}</TableCell>))}
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={subHeaders.length}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <Typography variant="h6" gutterBottom component="div" sx={{'display':"flex",'justifySelf':'start'}}>
-                                מוצרים בהזמנה
+                                {subRowTitle}
                             </Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        {subHeaders.map(sh => (<TableCell component={"th"} key={`${row.id}_${sh}`}>{sh.label}</TableCell>))}
+                                        {subHeaders.map(sh => (<TableCell component={"th"} key={`${row.id}_${sh.field}`}>{sh.label}</TableCell>))}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {row.subItems.map((subRow) => (
                                         <TableRow key={subRow.id}>
                                             {subHeaders.map(sh=>(
-                                                <TableCell component="td" scope="row">
+                                                <TableCell key={`${subRow.id}_${sh.field}`} component="td" scope="row">
                                                     {subRow[sh.field]}
                                                 </TableCell>
                                             ))}
@@ -64,7 +64,7 @@ function Row(props) {
     );
 }
 
-export default function CollapsibleTable({data , headers,subHeaders}) {
+export default function CollapsibleTable({data , headers,subHeaders , subRowTitle="פירוט"}={}) {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -78,7 +78,7 @@ export default function CollapsibleTable({data , headers,subHeaders}) {
                 </TableHead>
                 <TableBody>
                     {data.map((row) => (
-                        <Row key={row.id} row={row} headers={headers} subHeaders={subHeaders} />
+                        <Row key={row.id} row={row} headers={headers} subHeaders={subHeaders} subRowTitle={subRowTitle} />
                     ))}
                 </TableBody>
             </Table>

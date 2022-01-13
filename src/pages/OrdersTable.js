@@ -38,15 +38,18 @@ export const productsHeaders = [
     },
     {
         field: "price",
-        label: "סכום"
+        label: "סכום",
+        type:"currency"
     },
     {
         field: "amount",
-        label: "כמות"
+        label: "כמות",
+        type:"number"
     },
     {
         field: "totalSum",
-        label: "מחיר סופי למוצר"
+        label: "מחיר סופי למוצר",
+        type:"currency"
     },
 ]
 
@@ -57,7 +60,7 @@ const data = [{
     email: "sjlomolgik@gmail.com",
     phone: "053-3393623",
     adress: "ncut adfaskdfasdf",
-    totalSum: 5000,
+    totalSum: "5,000 שח",
     subItems: [
         {
             id: 10,
@@ -74,7 +77,7 @@ const data = [{
 function OrdersTable() {
     return (
         <div style={{ display: 'grid', gap: '1rem' }}>
-            <DataGridCollapse headers={orderDetailsHeaders} subHeaders={productsHeaders} data={data} />
+            <DataGridCollapse headers={orderDetailsHeaders} subHeaders={productsHeaders} data={data} subRowTitle="פירוט מוצרים"/>
         </div>
     );
 }

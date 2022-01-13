@@ -74,9 +74,6 @@ export default function AppCtxProvider(props) {
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
-    useEffect(()=>{
-        console.log(orderDetails)
-    },[orderDetails])
 
     function updateOrderDetails(header, value) {
         setOrderDetails({...orderDetails , [header.field]:value})

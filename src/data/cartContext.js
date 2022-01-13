@@ -22,7 +22,6 @@ export const mapCategoryToImage = {
 }
 
 function getCategries() {
-    console.log("getCategries.run")
     const categries = new Set()
     data.forEach(item => categries.add(item.category))
     return [...categries]

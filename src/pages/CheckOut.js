@@ -7,6 +7,7 @@ import { routeNames } from "../data/routeNames";
 import { parseValueByType } from "../data/utils"
 import { db } from "../index"
 import { collection, addDoc } from "firebase/firestore"
+import { ORDERS } from "../data/collectionNames";
 
 const headers = [
     // {
@@ -70,7 +71,7 @@ function SelectProducts() {
                 total: getTotalToPay(),
                 date: new Date().toISOString()
             }
-            const colRef = collection(db, `/invitations`)
+            const colRef = collection(db, `/${ORDERS}`)
             const newDoc = await addDoc(colRef, checkOutData)
             alert(`ההזמנה נשלחה בהצלחה - מזהה ההזמנה הוא - ${newDoc.id}`)
             navigate(`/system/${routeNames.THANK_YOU}`, { replace: true })

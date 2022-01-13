@@ -21,21 +21,23 @@ function SelectProducts() {
         <Typography variant="p" component="p">
             את התשלום ניתן לבצע גם באמצעות ביט
         </Typography>
-        <Typography variant="p">
-            <span>למתכונים , טיפים ורעיונות לרטבים בקרו אותנו </span>
-            <a href={socialLinks.IG}>באינסטגרם</a>
-            <span> או </span>
-            <a href={socialLinks.FB}>בפייסבוק</a>
-            <a href="https://pastatria.co.il/" target={"_self"}>ניתן לבקר באתר שלנו כדי לראות את כל המבצעים והמוצרים</a>
+        <Typography variant="p" component="p" sx={{'display':'inline-flex','alignItems':'center',gap:'5px'}} >
+            <span>למתכונים , טיפים ורעיונות לרטבים בקרו אותנו ב </span>
+            <a href={socialLinks.IG}>
+                <img src="/igIcon.svg" alt="באינסטגרם"/>
+            </a>
+            <span> או ב </span>
+            <a href={socialLinks.FB}>
+                <img src="/fbIcon.svg" alt="בפייסבוק"/>
+            </a>
         </Typography>
         <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
         {Object.entries(mapCategoryToImage).map(([title,img]) => (
-            <ImageListItem key={img}>
+            <ImageListItem key={title}>
             <img
-                src={`${img}?w=164&h=164&fit=crop&auto=format`}
+                src={`/${img}?w=164&h=164&fit=crop&auto=format`}
                 srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                 alt={title}
-                loading="lazy"
             />
             </ImageListItem>
         ))}
