@@ -1,8 +1,10 @@
 import { Button, FormControlLabel, Switch, Card, CardMedia, Typography, CardActions } from "@mui/material"
 import { useState } from "react"
+import { useAppCtx } from "../data/appContext"
 import { mapCategoryToImage, useCartList } from "../data/cartContext"
 
 function ButtonCard({ category, idx, isFiltered, toggleFilter }) {
+    
     return (
         <Card sx={{maxWidth: 400}}>
             <CardMedia
@@ -38,10 +40,13 @@ function ButtonCard({ category, idx, isFiltered, toggleFilter }) {
 export default function FilterByCategory() {
     const { filters, addFilter, removeFilter, addAllFilters, removeAllFilters, categories } = useCartList()
     const [selectAll, setSelectAll] = useState(false)
-
+    const {tableRef} = useAppCtx()
     function toggleFilter(category) {
         if (filters.includes(category)) removeFilter(category)
-        else addFilter(category)
+        else {
+            addFilter(category)
+            tableRef.current.scrollIntoView({behavior: "smooth"})
+        }
     }
     function toggleAll() {
         if (selectAll) addAllFilters()

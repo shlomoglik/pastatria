@@ -10,7 +10,7 @@ import OrdersTable from "../pages/OrdersTable";
 
 function App() {
   return (
-       <div dir="rtl" style={{ padding: "3rem" }}>
+       <div dir="rtl" style={{ padding: "1vw" ,justifyContent:'center' }}>
         <FormSteps />
         <Routes>
           <Route path="/" >

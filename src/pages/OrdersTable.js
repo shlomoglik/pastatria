@@ -1,10 +1,13 @@
 import DataGridCollapse from "../commons/DataGridCollapse";
+import {useFbCollections} from "../data/fbContext"
+import { parseValueByType } from "../data/utils";
 
 
 export const orderDetailsHeaders = [
     {
         field: "date",
         label: "תאריך הזמנה",
+        type: "date",
     },
     {
         field: "name",
@@ -23,7 +26,7 @@ export const orderDetailsHeaders = [
         label: "כתובת / קבוצת רכישה",
     },
     {
-        field: "totalSum",
+        field: "calcSum",
         label: "סכום סופי",
     },
 ]
@@ -33,51 +36,34 @@ export const productsHeaders = [
         label: "קטגוריה",
     },
     {
-        field: "productName",
+        field: "product",
         label: "שם המוצר"
     },
     {
         field: "price",
         label: "סכום",
-        type:"currency"
+        type: "currency"
     },
     {
         field: "amount",
         label: "כמות",
-        type:"number"
+        type: "number"
     },
     {
-        field: "totalSum",
+        field: "calcSum",
         label: "מחיר סופי למוצר",
-        type:"currency"
+        type: "currency",
+        calc: (doc)=> parseValueByType(Number(doc.amount || 0) * Number(doc.price || 0),"currency")
     },
 ]
 
-const data = [{
-    id: 1,
-    date: "01/01/2021",
-    name: "shlomo",
-    email: "sjlomolgik@gmail.com",
-    phone: "053-3393623",
-    adress: "ncut adfaskdfasdf",
-    totalSum: "5,000 שח",
-    subItems: [
-        {
-            id: 10,
-            category: "רביולי",
-            productName: "רביולי גבינות",
-            price: 150,
-            amount: 5,
-            totalSum: 750,
-        }
-    ]
-}]
 
 
 function OrdersTable() {
+    const {orders} = useFbCollections()
     return (
         <div style={{ display: 'grid', gap: '1rem' }}>
-            <DataGridCollapse headers={orderDetailsHeaders} subHeaders={productsHeaders} data={data} subRowTitle="פירוט מוצרים"/>
+            <DataGridCollapse headers={orderDetailsHeaders} subHeaders={productsHeaders} subRowKey="products" data={orders} subRowTitle="פירוט מוצרים" />
         </div>
     );
 }

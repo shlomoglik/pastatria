@@ -12,8 +12,8 @@ function SelectProducts() {
     }
 
   return (
-   <div style={{display:'grid' , gap:'1rem'}}>
-        <Typography variant="h3" component="h3">תודה שבחרת פסטטרייה...</Typography>
+   <div style={{display:'grid' , gap:'1rem' ,justifyContent: 'center',textAlign: 'center'}}>
+        <Typography variant="p" component="p">תודה שבחרת פסטטרייה...</Typography>
         <div>
             <Typography variant="h5" component="h4">סהכ לתשלום:</Typography>
             <Typography variant="h4" component="h5">{parseValueByType(getTotalToPay(),"currency")}</Typography>
@@ -21,7 +21,7 @@ function SelectProducts() {
         <Typography variant="p" component="p">
             את התשלום ניתן לבצע גם באמצעות ביט
         </Typography>
-        <Typography variant="p" component="p" sx={{'display':'inline-flex','alignItems':'center',gap:'5px'}} >
+        <Typography variant="p" component="p" sx={{'display':'inline-block','alignItems':'center',gap:'5px'}} >
             <span>למתכונים , טיפים ורעיונות לרטבים בקרו אותנו ב </span>
             <a href={socialLinks.IG}>
                 <img src="/igIcon.svg" alt="באינסטגרם"/>

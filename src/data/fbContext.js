@@ -24,7 +24,7 @@ export default function FbProvider({ children }) {
         }
         //fetch as listener~
         Object.keys(listenTo).forEach(path => {
-          const colRef = collection(db, path)
+          const colRef = collection(db, `/${path}`)
           listenTo[path] = onSnapshot(colRef, snap => {
             snap.docChanges().forEach(({ doc, type }) => {
               if (type === "added") {
@@ -55,7 +55,6 @@ export default function FbProvider({ children }) {
             })
           })
         })
-        console.log(state)
         return () => {
           updateState(...initialState)
           Object.values(listenTo).forEach(unsubscribe => {

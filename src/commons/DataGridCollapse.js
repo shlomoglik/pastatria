@@ -12,15 +12,18 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {parseValueByType} from "../data/utils"
+import { Chip } from '@mui/material';
 
 function Row(props) {
-    const { row , headers,subHeaders , subRowTitle} = props;
+    const { row , headers,subHeaders , subRowTitle , subRowKey} = props;
     const [open, setOpen] = React.useState(false);
 
     return (
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
+                    <Chip label="ממתין לתשלום" />
                     <IconButton
                         aria-label="expand row"
                         size="small"
@@ -29,10 +32,10 @@ function Row(props) {
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                {headers.map(h => (<TableCell component={"th"} key={`${row.id}_${h.field}`}>{row[h.field]}</TableCell>))}
+                {headers.map(h => (<TableCell align='center' component={"th"} key={`${row.id}_${h.field}`}>{parseValueByType(row[h.field],h.type)}</TableCell>))}
             </TableRow>
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={subHeaders.length}>
+                <TableCell align='center' style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={subHeaders.length}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <Typography variant="h6" gutterBottom component="div" sx={{'display':"flex",'justifySelf':'start'}}>
@@ -41,15 +44,15 @@ function Row(props) {
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        {subHeaders.map(sh => (<TableCell component={"th"} key={`${row.id}_${sh.field}`}>{sh.label}</TableCell>))}
+                                        {subHeaders.map(sh => (<TableCell align='center' component={"th"} key={`${row.id}_${sh.field}`}>{sh.label}</TableCell>))}
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.subItems.map((subRow) => (
+                                    {row[subRowKey].map((subRow) => (
                                         <TableRow key={subRow.id}>
                                             {subHeaders.map(sh=>(
-                                                <TableCell key={`${subRow.id}_${sh.field}`} component="td" scope="row">
-                                                    {subRow[sh.field]}
+                                                <TableCell align='center' key={`${subRow.id}_${sh.field}`} component="td" scope="row">
+                                                    {parseValueByType(subRow[sh.field] , sh.type)}
                                                 </TableCell>
                                             ))}
                                         </TableRow>
@@ -64,13 +67,13 @@ function Row(props) {
     );
 }
 
-export default function CollapsibleTable({data , headers,subHeaders , subRowTitle="פירוט"}={}) {
+export default function CollapsibleTable({data , headers,subHeaders ,subRowKey="subItems", subRowTitle="פירוט"}={}) {
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
-                        <TableCell />
+                        <TableCell align='center' />
                         {headers.map(h => (
                             <TableCell component="th" align='center' style={{ fontWeight: '600' }} key={h.field}>{h.label}</TableCell>
                         ))}
@@ -78,7 +81,7 @@ export default function CollapsibleTable({data , headers,subHeaders , subRowTitl
                 </TableHead>
                 <TableBody>
                     {data.map((row) => (
-                        <Row key={row.id} row={row} headers={headers} subHeaders={subHeaders} subRowTitle={subRowTitle} />
+                        <Row key={row.id} row={row} headers={headers} subHeaders={subHeaders} subRowTitle={subRowTitle} subRowKey={subRowKey} />
                     ))}
                 </TableBody>
             </Table>

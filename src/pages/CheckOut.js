@@ -8,52 +8,7 @@ import { parseValueByType } from "../data/utils"
 import { db } from "../index"
 import { collection, addDoc } from "firebase/firestore"
 import { ORDERS } from "../data/collectionNames";
-
-const headers = [
-    // {
-    //     field: "category",
-    //     label: "קטגוריה",
-    // },
-    {
-        field: "product",
-        label: "מוצר",
-    },
-    // {
-    //     field: "description",
-    //     label: "תיאור",
-    //     hideMobile: true
-    // },
-    {
-        field: "unitWeight",
-        label: "משקל / נפח / יחידת מידה",
-    },
-    {
-        field: "price",
-        label: "סכום",
-    },
-    {
-        field: "amount",
-        label: "כמות",
-        input: { type: "number" }
-    },
-    {
-        field: "calcSum",
-        label: "סהכ",
-        calc: (doc) => parseValueByType(Number(doc.amount || 0) * Number(doc.price || 0),"currency")
-    },
-    // {
-    //     field: "allergies",
-    //     label: "אלרגנים",
-    // },
-    // {
-    //     field: "items",
-    //     label: "רכיבים",
-    // },
-    // {
-    //     field: "nutritionalValues",
-    //     label: "ערכים תזונתיים",
-    // },
-]
+import { cartProductHeaders, orderStatusList } from "../data/cartProductHeaders";
 
 function SelectProducts() {
     const { list } = useCartList()
@@ -67,6 +22,7 @@ function SelectProducts() {
         try {
             const checkOutData = {
                 ...orderDetails,
+                status: orderStatusList.AwaitingPayment,
                 products: [...list],
                 total: getTotalToPay(),
                 date: new Date().toISOString()
@@ -82,12 +38,12 @@ function SelectProducts() {
     }
     return (
         <div style={{ display: 'grid', gap: '1rem' }}>
-            <DataTable headers={headers} data={list} />
+            <DataTable headers={cartProductHeaders} data={list} />
             <div>
                 <Typography variant="h5" component="h4">סהכ לתשלום:</Typography>
                 <Typography variant="h4" component="h5">{parseValueByType(getTotalToPay(), "currency")}</Typography>
             </div>
-            <Button disabled={!getTotalToPay()>0} style={{ 'justifySelf': "flex-start" }} variant='contained' onClick={handleSendInvitation}>שליחת ההזמנה</Button>
+            <Button disabled={!getTotalToPay() > 0} style={{ 'justifySelf': "flex-start" }} variant='contained' onClick={handleSendInvitation}>שליחת ההזמנה</Button>
         </div>
     );
 }

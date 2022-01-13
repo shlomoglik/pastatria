@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useRef, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom";
 import { routeNames } from "../data/routeNames"
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const steps = [
     {
@@ -47,7 +48,8 @@ const appCtx = React.createContext({
     formSteps: steps,
     setActiveStep: () => null,
     orderDetails: {},
-    updateOrderDetails: (header = "", value = "") => null
+    updateOrderDetails: (header = "", value = "") => null,
+    tableRef:null
 })
 
 export function useAppCtx() {
@@ -56,11 +58,16 @@ export function useAppCtx() {
 
 export default function AppCtxProvider(props) {
     const [formSteps, setFormStep] = useState(steps)
-    const [orderDetails, setOrderDetails] = useState(() => {
-        const obj = {}
-        orderDetailsHeaders.forEach(el=>obj[el.field]="")
-        return obj
+    const [orderDetails,setOrderDetails] = useLocalStorage("orderDetails",()=>{
+        const storageItem = localStorage.getItem("orderDetails")
+        if(!storageItem) {
+            const obj = {}
+            orderDetailsHeaders.forEach(el=>obj[el.field]="")
+            return obj
+        }
+        return JSON.parse(storageItem)
     })
+    const tableRef = useRef(null)
     const navigate = useNavigate()
     const location  = useLocation()
 
@@ -73,7 +80,7 @@ export default function AppCtxProvider(props) {
             })
         })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+    },[location])
 
     function updateOrderDetails(header, value) {
         setOrderDetails({...orderDetails , [header.field]:value})
@@ -92,7 +99,8 @@ export default function AppCtxProvider(props) {
         formSteps,
         setActiveStep,
         orderDetails,
-        updateOrderDetails
+        updateOrderDetails,
+        tableRef
     }}>
         {props.children}
     </appCtx.Provider>

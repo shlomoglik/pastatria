@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useMemo, useState } from "react"
+import { cartProductHeaders } from "./cartProductHeaders"
 import { data } from "./products"
 
 const cartCtx = React.createContext({
     list: [],
+    updateList: () => null,
+    removeItem: () => null,
     filters: [],
     addFilter: () => null,
     removeFilter: () => null,
-    updateList: () => null,
-    removeItem: () => null,
 })
 
 export const mapCategoryToImage = {
@@ -38,8 +39,8 @@ export default function CartCtxProvider(props) {
     const [filters, setFilters] = useState([])
 
     useEffect(() => {
-        console.log(filters)
-    }, [list, filters])
+        console.log(list)
+    }, [list])
 
 
     function addFilter(elem) {
@@ -58,12 +59,22 @@ export default function CartCtxProvider(props) {
     function removeItem(id) {
         setList(list => list.filter(el => el.id !== id))
     }
+
+    function calcItem(item){
+        const cloneItem = {...item}
+        cartProductHeaders.forEach(header=>{
+            if(header.calc){
+                cloneItem[header.field] = header.calc(item)
+            }
+        })
+        return cloneItem
+    }
     function updateList(item) {
         setList(prevList => {
             if (prevList.find(el => el.id === item.id)) {
                 return prevList.map(el => {
-                    if (el.id === item.id) return item
-                    return el
+                    if (el.id === item.id) return calcItem(item)
+                    return calcItem(el)
                 })
             }
             return [...prevList, { ...item }]
