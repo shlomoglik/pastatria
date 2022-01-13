@@ -4,28 +4,31 @@ import FilterByCategory from "../components/FilterByCategory";
 import { data } from '../data/products';
 import { useAppCtx } from "../data/appContext";
 import { routeNames } from "../data/routeNames";
+import {parseValueByType} from "../data/utils"
 
 const headers = [
-  {
-      field: "category",
-      label: "קטגוריה",
-  },
+//   {
+//       field: "category",
+//       label: "קטגוריה",
+//   },
   {
       field: "product",
       label: "מוצר",
   },
-  {
-      field: "description",
-      label: "תיאור",
-      hideMobile: true
-  },
+  // {
+  //     field: "description",
+  //     label: "תיאור",
+  //     hideMobile: true
+  // },
   {
       field: "unitWeight",
       label: "משקל / נפח / יחידת מידה",
+      hideMobile: true
   },
   {
       field: "price",
       label: "סכום",
+      type:"currency"
   },
   {
       field: "amount",
@@ -35,7 +38,7 @@ const headers = [
   {
       field: "calcSum",
       label: "סהכ",
-      calc: (doc)=> Number(doc.amount || 0) * Number(doc.price || 0)
+      calc: (doc)=> parseValueByType(Number(doc.amount || 0) * Number(doc.price || 0),"currency")
   },
   // {
   //     field: "allergies",

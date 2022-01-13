@@ -38,8 +38,8 @@ export const orderDetailsHeaders = [
     },
     {
         field: "adress",
-        label: "כתובת",
-        input: { type: "text", multiline: true },
+        label: "כתובת / קבוצת רכישה",
+        input: { type: "text", multiline: true , required:true },
     },
 ]
 

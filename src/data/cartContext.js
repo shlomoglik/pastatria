@@ -10,6 +10,17 @@ const cartCtx = React.createContext({
     removeItem: () => null,
 })
 
+export const mapCategoryToImage = {
+    "רביולי": "ravioly.png",
+    "פסטה ארוכה": "long_pasta.png",
+    "פסטה קצרה": "short_pasta.png",
+    "קנלוני ודפי לזניה": "kanalony_lazanya.png",
+    "עבודת יד": "hand_made.png",
+    "ניוקי": "nioky.png",
+    "טבעוני": "vageterian.png",
+    "רטבים ותוספות": "sauces.png",
+}
+
 function getCategries() {
     console.log("getCategries.run")
     const categries = new Set()

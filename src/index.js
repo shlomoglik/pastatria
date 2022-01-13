@@ -4,6 +4,7 @@ import './index.css';
 import App from './components/App';
 
 import { initializeApp } from "firebase/app";
+import {  getFirestore } from "firebase/firestore";
 import { createTheme, CssBaseline } from '@mui/material';
 import CartCtxProvider from './data/cartContext';
 import AppCtxProvider from './data/appContext';
@@ -23,7 +24,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app)
 
 const theme = createTheme({
   direction: 'rtl',

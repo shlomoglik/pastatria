@@ -1,6 +1,8 @@
-import { Typography } from "@mui/material";
+import { ImageList, ImageListItem, Typography } from "@mui/material";
 import { useCartList } from "../data/cartContext";
 import {parseValueByType} from "../data/utils"
+import {mapCategoryToImage} from "../data/cartContext"
+import {socialLinks} from "../data/links"
 
 
 function SelectProducts() {
@@ -11,7 +13,7 @@ function SelectProducts() {
 
   return (
    <div style={{display:'grid' , gap:'1rem'}}>
-        <Typography variant="h3" component="h3">תודה שבחרת פסטה טרייה...</Typography>
+        <Typography variant="h3" component="h3">תודה שבחרת פסטטרייה...</Typography>
         <div>
             <Typography variant="h5" component="h4">סהכ לתשלום:</Typography>
             <Typography variant="h4" component="h5">{parseValueByType(getTotalToPay(),"currency")}</Typography>
@@ -19,7 +21,25 @@ function SelectProducts() {
         <Typography variant="p" component="p">
             את התשלום ניתן לבצע גם באמצעות ביט
         </Typography>
-        <a href="https://pastatria.co.il/" target={"_self"}>ניתן לבקר באתר שלנו כדי לראות את כל המבצעים והמוצרים</a>
+        <Typography variant="p">
+            <span>למתכונים , טיפים ורעיונות לרטבים בקרו אותנו </span>
+            <a href={socialLinks.IG}>באינסטגרם</a>
+            <span> או </span>
+            <a href={socialLinks.FB}>בפייסבוק</a>
+            <a href="https://pastatria.co.il/" target={"_self"}>ניתן לבקר באתר שלנו כדי לראות את כל המבצעים והמוצרים</a>
+        </Typography>
+        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+        {Object.entries(mapCategoryToImage).map(([title,img]) => (
+            <ImageListItem key={img}>
+            <img
+                src={`${img}?w=164&h=164&fit=crop&auto=format`}
+                srcSet={`${img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                alt={title}
+                loading="lazy"
+            />
+            </ImageListItem>
+        ))}
+        </ImageList>
    </div>
   );
 }

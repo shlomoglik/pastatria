@@ -1,17 +1,6 @@
 import { Button, FormControlLabel, Switch, Card, CardMedia, Typography, CardActions } from "@mui/material"
 import { useState } from "react"
-import { useCartList } from "../data/cartContext"
-
-const mapCategoryToImage = {
-    "רביולי": "ravioly.png",
-    "פסטה ארוכה": "long_pasta.png",
-    "פסטה קצרה": "short_pasta.png",
-    "קנלוני ודפי לזניה": "kanalony_lazanya.png",
-    "עבודת יד": "hand_made.png",
-    "ניוקי": "nioky.png",
-    "טבעוני": "vageterian.png",
-    "רטבים ותוספות": "sauces.png",
-}
+import { mapCategoryToImage, useCartList } from "../data/cartContext"
 
 function ButtonCard({ category, idx, isFiltered, toggleFilter }) {
     return (
@@ -37,7 +26,7 @@ function ButtonCard({ category, idx, isFiltered, toggleFilter }) {
                         בחר
                     </Button>
                 </CardActions>
-                <Typography gutterBottom variant="p" component="p" style={{'justifySelf':'center' , padding:'1rem   '}}>
+                <Typography gutterBottom variant="p" component="p" style={{'justifySelf':'center' , padding:'1rem'}}>
                     {category}
                 </Typography>
             </div>

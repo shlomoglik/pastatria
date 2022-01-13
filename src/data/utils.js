@@ -1,5 +1,8 @@
 const currencyFormat = new Intl.NumberFormat(undefined,{
-    currency:"NIS",
+    currency:"ILS",
+    style:"currency",
+    maximumFractionDigits:2,
+    minimumFractionDigits:0
 })
 export function parseValueByType(value,type){
     switch(type){
