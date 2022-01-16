@@ -5,7 +5,7 @@ const currencyFormat = new Intl.NumberFormat(undefined,{
     minimumFractionDigits:0
 })
 
-const dateFormat = new Intl.DateTimeFormat("IL",{
+const dateFormat = new Intl.DateTimeFormat("en-IL",{
     dateStyle:"short",
     timeStyle:"short",
     hour12: false,

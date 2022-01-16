@@ -22,7 +22,7 @@ function SelectProducts() {
         try {
             const checkOutData = {
                 ...orderDetails,
-                status: orderStatusList.AwaitingPayment,
+                status: orderStatusList.AwaitingPayment.value,
                 products: [...list],
                 total: getTotalToPay(),
                 date: new Date().toISOString()
@@ -36,6 +36,7 @@ function SelectProducts() {
             alert("מצטערים , אבל אירעה שגיאה... בוא ננסה בפעם אחרת")
         }
     }
+    
     return (
         <div style={{ display: 'grid', gap: '1rem' }}>
             <DataTable headers={cartProductHeaders} data={list} />

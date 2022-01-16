@@ -13,7 +13,7 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {parseValueByType} from "../data/utils"
-import { Chip } from '@mui/material';
+// import { Chip } from '@mui/material';
 
 function Row(props) {
     const { row , headers,subHeaders , subRowTitle , subRowKey} = props;
@@ -23,7 +23,7 @@ function Row(props) {
         <>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell>
-                    <Chip label="ממתין לתשלום" />
+                    {/* <Chip label="ממתין לתשלום" /> */}
                     <IconButton
                         aria-label="expand row"
                         size="small"
@@ -73,7 +73,7 @@ export default function CollapsibleTable({data , headers,subHeaders ,subRowKey="
             <Table aria-label="collapsible table">
                 <TableHead>
                     <TableRow>
-                        <TableCell align='center' />
+                        <TableCell align='center' > - </TableCell>
                         {headers.map(h => (
                             <TableCell component="th" align='center' style={{ fontWeight: '600' }} key={h.field}>{h.label}</TableCell>
                         ))}

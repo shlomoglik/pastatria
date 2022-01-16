@@ -1,6 +1,5 @@
 import DataGridCollapse from "../commons/DataGridCollapse";
 import {useFbCollections} from "../data/fbContext"
-import { parseValueByType } from "../data/utils";
 
 
 export const orderDetailsHeaders = [
@@ -26,8 +25,9 @@ export const orderDetailsHeaders = [
         label: "כתובת / קבוצת רכישה",
     },
     {
-        field: "calcSum",
+        field: "total",
         label: "סכום סופי",
+        type:"currency"
     },
 ]
 export const productsHeaders = [
@@ -53,7 +53,7 @@ export const productsHeaders = [
         field: "calcSum",
         label: "מחיר סופי למוצר",
         type: "currency",
-        calc: (doc)=> parseValueByType(Number(doc.amount || 0) * Number(doc.price || 0),"currency")
+        calc: (doc)=> Number(doc.amount || 0) * Number(doc.price || 0)
     },
 ]
 
