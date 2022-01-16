@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from "react"
+import React, { useContext,  useMemo, useState } from "react"
 import { cartProductHeaders } from "./cartProductHeaders"
 import { data } from "./products"
 
@@ -38,9 +38,9 @@ export default function CartCtxProvider(props) {
     const [list, setList] = useState([])
     const [filters, setFilters] = useState([])
 
-    useEffect(() => {
-        console.log(list)
-    }, [list])
+    // useEffect(() => {
+    //     console.log(list)
+    // }, [list])
 
 
     function addFilter(elem) {
@@ -77,7 +77,7 @@ export default function CartCtxProvider(props) {
                     return calcItem(el)
                 })
             }
-            return [...prevList, { ...item }]
+            return [...prevList, calcItem(item)]
         })
     }
 

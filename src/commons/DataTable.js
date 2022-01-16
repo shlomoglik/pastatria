@@ -23,10 +23,15 @@ function DataRow({ rIdx, row, headers, isMobile }) {
         updateList(doc)
     }
 
-    function getCellValue(header) {
+    function getDoc() {
         const existInList = list.find(el => el.id === row.id)
-        if (existInList) return parseValueByType(existInList[header.field], header.type)
-        return parseValueByType(row[header.field], header.type)
+        if (existInList) return existInList
+        return row
+    }
+
+    function getCellValue(header) {
+        const doc = getDoc()
+        return parseValueByType(doc[header.field], header.type)
     }
 
     function getItemByID(id, header) {
@@ -41,12 +46,12 @@ function DataRow({ rIdx, row, headers, isMobile }) {
 
     return (
         <>
-            <ProductModal open={open} handleClose={handleClose} product={row}/>
+            <ProductModal open={open} handleClose={handleClose} product={getDoc()} handleInput={handleInput} />
             <TableRow
-                sx={{ 
-                    '&:last-child td, &:last-child th': { border: 0 } ,
-                    '& > :first-child':{transition:'all .2s ease' , cursor:'pointer'},
-                    '& > :first-child:hover':{textDecoration:'underline' , color:'primary.main'},
+                sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                    '& > :first-child': { transition: 'all .2s ease', cursor: 'pointer' },
+                    '& > :first-child:hover': { textDecoration: 'underline', color: 'primary.main' },
                 }}
             >
                 {headers.map((h, hIdx) => (
