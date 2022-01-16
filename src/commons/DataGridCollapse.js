@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import {parseValueByType} from "../data/utils"
+import {formatValue, parseValueByType} from "../data/utils"
 // import { Chip } from '@mui/material';
 
 function Row(props) {
@@ -52,7 +52,7 @@ function Row(props) {
                                         <TableRow key={subRow.id}>
                                             {subHeaders.map(sh=>(
                                                 <TableCell align='center' key={`${subRow.id}_${sh.field}`} component="td" scope="row">
-                                                    {parseValueByType(subRow[sh.field] , sh.type)}
+                                                    {formatValue(subRow[sh.field] , sh.type)}
                                                 </TableCell>
                                             ))}
                                         </TableRow>

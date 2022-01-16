@@ -63,7 +63,13 @@ function DataRow({ rIdx, row, headers, isMobile }) {
                             align='center'
                         >
                             {h.input ?
-                                <TextField sx={{ '& input': { padding: '5px !important' } }} type={h.input.type || "text"} value={getItemByID(row.id, h) || ""} onChange={e => handleInput(e.target.value, h)} />
+                                <TextField 
+                                    sx={{ '& input': { padding: '5px !important' } }} 
+                                    type={h.input.type || "text"} 
+                                    value={getItemByID(row.id, h) || ""} 
+                                    onChange={e => handleInput(e.target.value, h)}
+                                    inputProps={{...h.input}}
+                                />
                                 :
                                 getCellValue(h)
                             }

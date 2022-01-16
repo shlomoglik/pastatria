@@ -1,6 +1,6 @@
 import { ImageList, ImageListItem, Typography } from "@mui/material";
 import { useCartList } from "../data/cartContext";
-import {parseValueByType} from "../data/utils"
+import {formatValue} from "../data/utils"
 import {mapCategoryToImage} from "../data/cartContext"
 import {socialLinks} from "../data/links"
 
@@ -16,7 +16,7 @@ function SelectProducts() {
         <Typography variant="p" component="p">תודה שבחרת פסטטרייה...</Typography>
         <div>
             <Typography variant="h5" component="h4">סהכ לתשלום:</Typography>
-            <Typography variant="h4" component="h5">{parseValueByType(getTotalToPay(),"currency")}</Typography>
+            <Typography variant="h4" component="h5">{formatValue(getTotalToPay(),"currency")}</Typography>
         </div>
         <Typography variant="p" component="p">
             את התשלום ניתן לבצע גם באמצעות ביט

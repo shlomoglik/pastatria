@@ -13,7 +13,7 @@ function SelectProducts() {
         <Typography sx={{ 'pb': '1rem', 'mt': "3rem" }} component={"h5"}>סינון לפי קטגוריה</Typography>
         <FilterByCategory />
         <DataTable headers={cartProductHeaders} data={data}/>
-        <Button style={{'justifySelf':"flex-start"}} variant='contained' onClick={()=>setActiveStep(routeNames.CHECK_OUT)}>לשלב הבא</Button>
+        <Button style={{'justifySelf':"center"}} variant='contained' onClick={()=>setActiveStep(routeNames.CHECK_OUT)}>לשלב הבא</Button>
    </div>
   );
 }

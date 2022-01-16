@@ -12,7 +12,8 @@ export default function DataForm({ errors=[],storeData, updateStoreData, title, 
                     label={h.label}
                     value={storeData[h.field]}
                     onChange={e => updateStoreData(h, e.target.value)}
-                    variant="outlined" {...h.input} 
+                    variant="outlined" 
+                    {...h.input} 
                 />
             ))}
             <Divider />

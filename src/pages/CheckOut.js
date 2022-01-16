@@ -4,7 +4,7 @@ import DataTable from "../commons/DataTable";
 import { useAppCtx } from "../data/appContext";
 import { useCartList } from "../data/cartContext";
 import { routeNames } from "../data/routeNames";
-import { parseValueByType } from "../data/utils"
+import { formatValue } from "../data/utils"
 import { db } from "../index"
 import { collection, addDoc } from "firebase/firestore"
 import { ORDERS } from "../data/collectionNames";
@@ -38,13 +38,13 @@ function SelectProducts() {
     }
     
     return (
-        <div style={{ display: 'grid', gap: '1rem' }}>
+        <div style={{ display: 'grid', gap: '1rem' , justifyItems:'center'}}>
             <DataTable headers={cartProductHeaders} data={list} />
             <div>
                 <Typography variant="h5" component="h4">סהכ לתשלום:</Typography>
-                <Typography variant="h4" component="h5">{parseValueByType(getTotalToPay(), "currency")}</Typography>
+                <Typography variant="h4" component="h5">{formatValue(getTotalToPay(), "currency")}</Typography>
             </div>
-            <Button disabled={!getTotalToPay() > 0} style={{ 'justifySelf': "flex-start" }} variant='contained' onClick={handleSendInvitation}>שליחת ההזמנה</Button>
+            <Button disabled={!getTotalToPay() > 0} variant='contained' onClick={handleSendInvitation}>שליחת ההזמנה</Button>
         </div>
     );
 }

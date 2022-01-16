@@ -25,7 +25,7 @@ export const cartProductHeaders = [
     {
         field: "amount",
         label: "כמות",
-        input: { type: "number" }
+        input: { type: "number",min:"0" }
     },
     {
         field: "calcSum",
